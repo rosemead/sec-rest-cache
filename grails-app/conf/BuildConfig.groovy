@@ -49,7 +49,7 @@ grails.project.dependency.resolution = {
         // plugins for the compile step
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.6'
-        compile ":cache-ehcache:1.0.2"
+        compile ":cache-ehcache:1.0.0" //https://jira.grails.org/browse/GPCACHEEHCACHE-13
         compile ":asset-pipeline:1.8.11"
         compile ":spring-security-core:2.0-RC3"
         compile ":spring-security-rest:1.4.0.RC5", {
