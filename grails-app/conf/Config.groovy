@@ -115,3 +115,47 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+grails.plugin.springsecurity.filterChain.chainMap = [
+        '/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter',  // Stateless chain
+        '/**': 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'                                          // Traditional chain
+]
+
+grails.plugin.springsecurity.rest.token.validation.useBearerToken = false
+grails.plugin.springsecurity.rest.token.validation.enableAnonymousAccess = true
+grails.plugin.springsecurity.rest.token.storage.useGrailsCache = true
+grails.plugin.springsecurity.rest.token.storage.grailsCacheName = 'token'
+grails.plugin.springsecurity.rest.token.rendering.usernamePropertyName = 'username'
+grails.plugin.springsecurity.rest.token.rendering.authoritiesPropertyName = 'roles'
+grails.plugin.springsecurity.rest.token.rendering.tokenPropertyName = 'access_token'
+
+grails.cache.config = {
+    cache {
+        name 'token'
+        maxElementsInMemory 10000
+        eternal false
+        timeToIdleSeconds 1800
+        overflowToDisk true
+        maxElementsOnDisk 10000000
+        diskPersistent false
+        diskExpiryThreadIntervalSecondys 120
+        memoryStoreEvictionPolicy 'LRU'
+    }
+}
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.yourapp.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.yourapp.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.yourapp.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                              ['permitAll'],
+	'/index':                         ['permitAll'],
+	'/index.gsp':                     ['permitAll'],
+	'/**/js/**':                      ['permitAll'],
+	'/**/css/**':                     ['permitAll'],
+	'/**/images/**':                  ['permitAll'],
+	'/**/favicon.ico':                ['permitAll']
+]
+
